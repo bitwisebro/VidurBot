@@ -3,13 +3,13 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>myProjects</groupId>
-	<artifactId>Java.Telegram.Bot</artifactId>
+	<groupId>in.RealGJ</groupId>
+	<artifactId>VidurBot</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 
 	<name>artifact</name>
 	<!-- FIXME change it to the project's website -->
-	<url>com.realGJ.github</url>
+	<url>io.github.RealGJ</url>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
