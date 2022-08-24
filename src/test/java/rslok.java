@@ -6,8 +6,8 @@ import java.time.Duration;
 
 import org.apache.http.entity.mime.HttpMultipartMode;
 import org.json.JSONObject;
-//HttpClient client = HttpClient.newHttpClient();
-import main.App;
+
+import vidurBot.App;
 
 public class rslok {
 

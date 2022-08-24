@@ -1,4 +1,4 @@
-package main;
+package vidurBot;
 
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -23,9 +23,10 @@ public class App extends TelegramLongPollingBot {
 	@Override
 	public void onUpdateReceived(Update update) {
 		String command = update.getMessage().getText();
-
 		SendMessage msg = new SendMessage();
 		msg.setChatId(setChat(update));
+		System.out.println(
+				"runLog: | user: " + update.getMessage().getFrom().getFirstName() + " | command: " + update.getMessage().getText());
 		if (command.equalsIgnoreCase("/start")) {
 			String messageStr = "Kaise ho " + update.getMessage().getFrom().getFirstName() + " "
 					+ update.getMessage().getFrom().getLastName() + "!!";
@@ -74,7 +75,7 @@ public class App extends TelegramLongPollingBot {
 
 			}
 		} else {
-			System.out.println(update.getMessage().getText());
+//			System.out.println(update.getMessage().getText());
 			String msg2 = "Invalid Command!!";
 			msg.setText(msg2);
 			try {
@@ -122,7 +123,7 @@ public class App extends TelegramLongPollingBot {
 		URLConnection con = req.openConnection();
 		Scanner scn = new Scanner(new InputStreamReader(con.getInputStream()));
 		String inputLine = scn.nextLine();
-		System.out.println(inputLine);
+//		System.out.println(inputLine);
 		scn.close();
 		return inputLine;
 	}
