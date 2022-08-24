@@ -49,10 +49,10 @@ out/
 ## Eclipse
 ##############################
 .settings/
+.classpath
 bin/
 tmp/
 .metadata
-.classpath
 .project
 *.tmp
 *.bak
