@@ -25,8 +25,8 @@ public class App extends TelegramLongPollingBot {
 		String command = update.getMessage().getText();
 		SendMessage msg = new SendMessage();
 		msg.setChatId(setChat(update));
-		System.out.println(
-				"runLog: | user: " + update.getMessage().getFrom().getFirstName() + " | command: " + update.getMessage().getText());
+		System.out.println("runLog: | user: " + update.getMessage().getFrom().getFirstName() + " | command: "
+				+ update.getMessage().getText());
 		if (command.equalsIgnoreCase("/start")) {
 			String messageStr = "Kaise ho " + update.getMessage().getFrom().getFirstName() + " "
 					+ update.getMessage().getFrom().getLastName() + "!!";
@@ -62,17 +62,28 @@ public class App extends TelegramLongPollingBot {
 				msg.setText(getSlok(ch, sl));
 				execute(msg);
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 
 				try {
 					msg.setText("Your Request Couldn't be FullFilled");
 					execute(msg);
 				} catch (TelegramApiException e1) {
-					// TODO Auto-generated catch block
-//					e1.printStackTrace();
+
 				}
 
+			}
+		} else if (command.toLowerCase().contains("rslok")) {
+			try {
+				msg.setText(getSlok());
+				execute(msg);
+			} catch (TelegramApiException e) {
+				e.printStackTrace();
+				try {
+					msg.setText("Your Request Couldn't be FullFilled");
+					execute(msg);
+				} catch (TelegramApiException e1) {
+
+				}
 			}
 		} else {
 //			System.out.println(update.getMessage().getText());
@@ -110,10 +121,8 @@ public class App extends TelegramLongPollingBot {
 		} catch (TelegramApiException e) {
 			e.printStackTrace();
 		} catch (MalformedURLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -126,6 +135,19 @@ public class App extends TelegramLongPollingBot {
 //		System.out.println(inputLine);
 		scn.close();
 		return inputLine;
+	}
+
+	public String getSlok() {
+		HttpClient client = HttpClient.newHttpClient();
+		int[] slokcount = { 47, 72, 43, 42, 29, 47, 30, 28, 34, 42, 55, 20, 35, 27, 20, 24, 28, 78 };
+		int ch = (int) Math.floor(Math.random() * 17) + 1;
+		int sl = (int) Math.floor(Math.random() * slokcount[(int) (ch - 1)]) + 1;
+		HttpRequest req = HttpRequest.newBuilder()
+				.uri(URI.create("https://bhagavadgitaapi.in/slok/" + ch + "/" + sl + "/")).build();
+
+		String msg = client.sendAsync(req, HttpResponse.BodyHandlers.ofString()).thenApply(HttpResponse::body)
+				.thenApply(App::parse).join();
+		return msg;
 	}
 
 	public String getSlok(String ch, String sl) {
@@ -163,7 +185,7 @@ public class App extends TelegramLongPollingBot {
 	@Override
 	public String getBotToken() {
 		// TODO Auto-generated method stub
-		return "1851500704:AAH5nF5yRB8bB9lciGAs1D8Y0SxM_2omyYs";
+		return "1635655061:AAFThYmSJPNzhk21N1vGeMagw_noapjwr9E";
 	}
 
 }

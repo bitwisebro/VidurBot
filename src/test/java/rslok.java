@@ -2,29 +2,32 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
-import java.time.Duration;
-
-import org.apache.http.entity.mime.HttpMultipartMode;
 import org.json.JSONObject;
-
-import vidurBot.App;
 
 public class rslok {
 
 	public static void main(String[] args) throws Exception {
-		HttpResponse<String> msg = new rslok().getSlok();
-		System.out.println(msg.toString());
+		String msg = new rslok().getSlok();
+		System.out.println(msg);
 	}
 
-	public HttpResponse<String> getSlok() throws Exception {
-		HttpClient client = HttpClient.newBuilder().followRedirects(HttpClient.Redirect.ALWAYS)
-				.connectTimeout(Duration.ofSeconds(10)) // follow redirects
-				.build();
+//	function gitaslokid() {
+//        const slokcount = [47, 72, 43, 42, 29, 47, 30, 28, 34, 42, 55, 20, 35, 27, 20, 24, 28, 78]
+//        const chapter = Math.floor(Math.random() * 17) + 1
+//        const slok = Math.floor(Math.random() * slokcount[chapter - 1]) + 1
+//        return `https://bhagavadgitaapi.in/slok/${chapter}/${slok}/`
+//    }
 
-		HttpRequest request = HttpRequest.newBuilder().GET().uri(URI.create("https://bhagavadgitaapi.in/slok/")).build();
+	public String getSlok() {
+		HttpClient client = HttpClient.newHttpClient();
+		int[] slokcount = { 47, 72, 43, 42, 29, 47, 30, 28, 34, 42, 55, 20, 35, 27, 20, 24, 28, 78 };
+		int ch = (int) Math.floor(Math.random() * 17) + 1;
+		int sl = (int) Math.floor(Math.random() * slokcount[(int) (ch - 1)]) + 1;
+		HttpRequest req = HttpRequest.newBuilder()
+				.uri(URI.create("https://bhagavadgitaapi.in/slok/" + ch + "/" + sl + "/")).build();
 
-		HttpResponse<String> msg = client.send(request, HttpResponse.BodyHandlers.ofString());
-//		String msg = parse(req);
+		String msg = client.sendAsync(req, HttpResponse.BodyHandlers.ofString()).thenApply(HttpResponse::body)
+				.thenApply(rslok::parse).join();
 		return msg;
 	}
 
