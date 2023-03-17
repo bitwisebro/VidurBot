@@ -185,7 +185,7 @@ public class App extends TelegramLongPollingBot {
 	@Override
 	public String getBotToken() {
 		// TODO Auto-generated method stub
-		return "1635655061:AAFThYmSJPNzhk21N1vGeMagw_noapjwr9E";
+		return "16000001:AhvJHYPNzhk21N1vsgsrnoadft4rvE";  //dummy token, replace it with your bot token
 	}
 
 }
